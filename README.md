@@ -18,7 +18,7 @@ To solve this, we first deploy the application to Heroku with placeholder values
    - **Config Vars**: Keep the placeholder values for `OAUTH_CLIENT_ID`, `OAUTH_CLIENT_SECRET` and `ALLOWED_ORIGINS`; we'll replace them later. `SECRET_KEY` is generated for you.
 
    If you're comfortable with Heroku and know what it means to change the other values, feel free to do so. Otherwise keep the defaults.
-2. When Heroku finishes deploying, note the app URL, which looks like `https://<your-app-name>.herokuapp.com`. (Heroku chooses the app name, often with a numeric suffix.) Copy it; you'll need it in the next step.
+2. When Heroku finishes, you should see a "Your app was successfully deployed.' notice, and a button that says "View".  Copy that URL, which looks like `https://<your-app-name>.herokuapp.com`. (Heroku chooses the app name, often with a numeric suffix.) Copy it; you'll need it in the next step.
 
 ## Step Two: Configure GitHub
 
