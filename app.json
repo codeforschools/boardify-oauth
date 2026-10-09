@@ -10,7 +10,7 @@
   },
   "env": {
     "OAUTH_CLIENT_ID": {
-      "description": "Client ID of your GitHub OAuth App. Set its callback URL to https://<app-name>.herokuapp.com/callback, or https://<url>/callback."
+      "description": "Client ID of your GitHub OAuth App."
     },
     "OAUTH_CLIENT_SECRET": {
       "description": "Client secret of your GitHub OAuth App."
@@ -27,7 +27,7 @@
       "required": false
     },
     "SCOPES": {
-      "description": "Optional: OAuth scopes to request.",
+      "description": "Optional: OAuth scopes to request.  Defaults to repo,user",
       "value": "repo,user",
       "required": false
     }
