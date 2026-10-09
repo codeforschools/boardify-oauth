@@ -1,54 +1,55 @@
 # Boardify OAuth
 
-Minimal GitHub OAuth provider that lets [Sveltia CMS](https://github.com/sveltia/sveltia-cms) authenticate editors of Boardify.  This app sits in-between your Boardify instance and GitHub, allowing users to login to the Boardify admin.
+Minimal GitHub OAuth provider sits in between your Boardify instance and GitHub, allowing users to log in to the Boardify admin.
 
 ## Overview
-Setting this up requires a bit of back and forth.  GitHub needs to know the URL of this application, which isn't available until you deploy it.  But this application also needs to know the GitHub credentials, which aren't available until you create it.
 
-To solve this problem, we're going to first create and deploy the application with placeholder credentials.  Then, we'll configure things on the GitHub side, and then go back to the application to upload the placeholder credentials with the real ones.
+Setting this up requires a bit of back and forth. GitHub needs to know the URL of this application, which isn't available until you deploy it. But this application also needs the GitHub credentials, which aren't available until you create the OAuth App.
+
+To solve this, we first deploy the application to Heroku with placeholder values. Next, we configure things on GitHub.  Then we go back to the application and replace the placeholders with the real values.  Finally, we update the Boardify admin configuration and are ready to go.
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/codeforschools/boardify-oauth)
 
 ## Step One: Deploy to Heroku
 
-1. Click the **Deploy** button above.  You can keep all the defaults for now; these are the things we'll update later.
-2. When Heroku is finished deploying, you'll see the app URL, which will look something like "https://<your-heroku-organization>.herokuapp.com".  Copy this -- you'll need it for the next step.
+1. Click the **Deploy** button above. Keep the placeholder values for `OAUTH_CLIENT_ID`, `OAUTH_CLIENT_SECRET` and `ALLOWED_ORIGINS`; we'll replace them later. `SECRET_KEY` is generated for you.
+2. When Heroku finishes deploying, note the app URL, which looks like `https://<your-app-name>.herokuapp.com`. (Heroku chooses the app name, often with a numeric suffix.) Copy it; you'll need it in the next step.
 
 ## Step Two: Configure GitHub
 
-1. Create a GitHub OAuth App within the same organization as your Boardify instance.  This can be found in your "Developer Settings" under "OAuth Apps".  If you're using GitHub as an organization, go to "https://github.com/organizations/<your-organization>/settings/applications".  If you're using GitHub directly, go to "https://github.com/settings/developers".
+1. Create a GitHub OAuth App within the same organization as your Boardify instance. This is under "Developer Settings" > "OAuth Apps". For an organization, go to `https://github.com/organizations/<your-organization>/settings/applications`. For a personal account, go to `https://github.com/settings/developers`.
 2. Fill in the required information:
-  - Application Name (typically "Boardify")
-  - Homepage URL (the URL where Boardify runs, like 'boardify.example.com')
-  - Redirect URIs (this is the URL you copied from step one.  Paste that here.)
-  - Then click "Register Application".
-3. You'll see a confirmation screen.  On this screen you'll see a button named "Generate a new client secret".  Click it.
-4. Copy down both the Client ID, and the new Client Secret you generated.  You'll need them for the next step.
+   - **Application name:** typically "Boardify"
+   - **Homepage URL:** the full URL where Boardify runs, like `https://boardify.example.com`
+   - **Authorization callback URL:** the URL you copied in step one with `/callback` added, like `https://<your-app-name>.herokuapp.com/callback`
+3. Click "Register application".
+4. On the confirmation screen, click "Generate a new client secret".
+5. Copy down both the Client ID and the new Client Secret. You'll need them in the next step.
 
 ## Step Three: Configure Heroku
-1. Now that you have the Client ID and Client Secret, go back the Heroku App and update the `OAUTH_CLIENT_ID` and `OAUTH_CLIENT_SECRET` with those copied values.
-2. The Heroku App should restart when finished.
+
+In the Heroku dashboard, open your app's **Settings** > **Config Vars** and replace the placeholders:
+
+| Variable | Set it to |
+| --- | --- |
+| `OAUTH_CLIENT_ID` | The Client ID you copied from GitHub |
+| `OAUTH_CLIENT_SECRET` | The Client Secret you copied from GitHub |
+| `ALLOWED_ORIGINS` | The URL of your Boardify site, like `https://boardify.example.com` |
+
+> [!Note]
+> **What is `ALLOWED_ORIGINS`?** After a user signs in, this app sends the GitHub access token back to the Boardify admin page that opened the login popup. Because that token grants access to your repository, the app only delivers it to origins you list here. An origin is the scheme and host (plus port, if any) with no path or trailing slash: `https://boardify.example.com`, not `https://boardify.example.com/admin/`. It must match the address in the browser when you use the admin exactly, so `https://www.boardify.example.com` is a different origin from `https://boardify.example.com`. To allow more than one (for example, production and a local test site at `http://localhost:8080`), separate them with commas. If this is wrong, the login popup opens and then does nothing.
+
+Heroku restarts the app automatically when you save the config vars.
 
 ## Step Four: Configure Boardify
 
-1. The final step is to configure the Boardify Sveltia Admin with the updated information.
-
-### Sveltia CMS config, typically under 'admin/config.yml'
+Configure the Admin config on your Boardify site, typically `admin/config.yml`, with the URI you copied in Step One, and you should be good to go.
 
 ```yaml
 backend:
   name: github
   repo: <owner>/<boardify-repo>
   branch: main
-  base_url: https://<heroku-app-url-from-step-one>
+  base_url: https://<your-app-name>.herokuapp.com
 ```
-
-### Reference: OAuth Variables
-| Variable | Description |
-| --- | --- |
-| `OAUTH_CLIENT_ID` / `OAUTH_CLIENT_SECRET` | GitHub OAuth App credentials |
-| `SECRET_KEY` | Random string used to sign the session cookie (OAuth `state`) |
-| `ALLOWED_ORIGINS` | Comma-separated origins of the Boardify CMS; tokens are only posted to these |
-| `GIT_HOSTNAME` | Optional, GitHub Enterprise URL |
-| `SCOPES` | Optional, default `repo,user` |
 

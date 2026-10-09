@@ -2,27 +2,40 @@
   "name": "Boardify OAuth",
   "description": "GitHub OAuth provider for Sveltia CMS (Boardify).",
   "repository": "https://github.com/codeforschools/boardify-oauth",
-  "keywords": ["oauth", "github", "sveltia-cms", "flask"],
+  "keywords": [
+    "oauth",
+    "github",
+    "sveltia-cms",
+    "flask"
+  ],
   "stack": "heroku-26",
-  "buildpacks": [{ "url": "heroku/python" }],
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ],
   "formation": {
-    "web": { "quantity": 1, "size": "basic" }
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    }
   },
   "env": {
     "OAUTH_CLIENT_ID": {
-      "description": "Client ID of your GitHub OAuth App.",
-      "value": "UPDATE-WITH-GITHUB-OAUTH-CLIENT-ID"
+      "description": "Client ID of your GitHub OAuth App. Leave as the placeholder until you have created the OAuth App.",
+      "value": "placeholder"
     },
     "OAUTH_CLIENT_SECRET": {
-      "description": "Client secret of your GitHub OAuth App.",
-      "value": "UPDATE-WITH-GITHUB-OAUTH-CLIENT-SECRET"
+      "description": "Client secret of your GitHub OAuth App. Leave as the placeholder until you have created the OAuth App.",
+      "value": "placeholder"
     },
     "SECRET_KEY": {
       "description": "Random string used to sign the session cookie (OAuth state).",
       "generator": "secret"
     },
     "ALLOWED_ORIGINS": {
-      "description": "Comma-separated origins of the Boardify CMS (e.g. https://boardify.example.com). Tokens are only posted to these."
+      "description": "Comma-separated origins of the Boardify CMS (e.g. https://boardify.example.com). Tokens are only posted to these. Leave as the placeholder for now.",
+      "value": "https://placeholder.example.com"
     },
     "GIT_HOSTNAME": {
       "description": "Optional: GitHub Enterprise URL. Leave blank for github.com.",
