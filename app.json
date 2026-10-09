@@ -1,0 +1,35 @@
+{
+  "name": "Boardify OAuth",
+  "description": "GitHub OAuth provider for Sveltia CMS (Boardify).",
+  "repository": "https://github.com/codeforschools/boardify-oauth",
+  "keywords": ["oauth", "github", "sveltia-cms", "flask"],
+  "stack": "heroku-26",
+  "buildpacks": [{ "url": "heroku/python" }],
+  "formation": {
+    "web": { "quantity": 1, "size": "basic" }
+  },
+  "env": {
+    "OAUTH_CLIENT_ID": {
+      "description": "Client ID of your GitHub OAuth App. Set its callback URL to https://<app-name>.herokuapp.com/callback, or https://<url>/callback."
+    },
+    "OAUTH_CLIENT_SECRET": {
+      "description": "Client secret of your GitHub OAuth App."
+    },
+    "SECRET_KEY": {
+      "description": "Random string used to sign the session cookie (OAuth state).",
+      "generator": "secret"
+    },
+    "ALLOWED_ORIGINS": {
+      "description": "Comma-separated origins of the Boardify CMS (e.g. https://boardify.example.com). Tokens are only posted to these."
+    },
+    "GIT_HOSTNAME": {
+      "description": "Optional: GitHub Enterprise URL. Leave blank for github.com.",
+      "required": false
+    },
+    "SCOPES": {
+      "description": "Optional: OAuth scopes to request.",
+      "value": "repo,user",
+      "required": false
+    }
+  }
+}

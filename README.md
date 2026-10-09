@@ -2,6 +2,14 @@
 
 Minimal GitHub OAuth provider that lets [Sveltia CMS](https://github.com/sveltia/sveltia-cms) authenticate editors of Boardify.
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/codeforschools/boardify-oauth)
+
+## Deploy to Heroku
+
+1. Create a [GitHub OAuth App](https://github.com/settings/developers). The callback URL must be `https://<your-heroku-app>.herokuapp.com/callback`; you can set a placeholder and update it after deploying.
+2. Click the **Deploy** button above and fill in the config vars (table below). `SECRET_KEY` is generated for you.
+3. Update the OAuth App's callback URL to the new app's URL if you used a placeholder.
+
 ## Setup
 
 1. Create a GitHub OAuth App. Set the callback URL to `https://<this-server>/callback`.
