@@ -1,11 +1,11 @@
 {
   "name": "Boardify OAuth",
-  "description": "GitHub OAuth provider for Sveltia CMS (Boardify).",
+  "description": "GitHub OAuth provider for Boardify Admin.",
   "repository": "https://github.com/codeforschools/boardify-oauth",
   "keywords": [
     "oauth",
     "github",
-    "sveltia-cms",
+    "boardify",
     "flask"
   ],
   "stack": "heroku-26",

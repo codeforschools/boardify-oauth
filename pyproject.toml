@@ -1,7 +1,7 @@
 [project]
 name = "boardify-oauth"
 version = "0.1.0"
-description = "GitHub OAuth provider for Sveltia CMS (Boardify)"
+description = "GitHub OAuth provider for Boardify admin"
 requires-python = ">=3.14"
 dependencies = [
     "flask",
