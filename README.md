@@ -1,6 +1,6 @@
 # Boardify OAuth
 
-Minimal GitHub OAuth provider sits in between your Boardify instance and GitHub, allowing users to log in to the Boardify admin.
+This is a minimal GitHub OAuth provider that sits in between your Boardify instance and GitHub, allowing users to log in to the Boardify admin.
 
 ## Overview
 
@@ -8,11 +8,17 @@ Setting this up requires a bit of back and forth. GitHub needs to know the URL o
 
 To solve this, we first deploy the application to Heroku with placeholder values. Next, we configure things on GitHub.  Then we go back to the application and replace the placeholders with the real values.  Finally, we update the Boardify admin configuration and are ready to go.
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/codeforschools/boardify-oauth)
 
 ## Step One: Deploy to Heroku
 
-1. Click the **Deploy** button above. Keep the placeholder values for `OAUTH_CLIENT_ID`, `OAUTH_CLIENT_SECRET` and `ALLOWED_ORIGINS`; we'll replace them later. `SECRET_KEY` is generated for you.
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/codeforschools/boardify-oauth)
+
+
+1. Click the **Deploy** button above.  This will launch a "Create New App" screen on Heroku.  Fill out as follows:
+  - **App name**: Give the app a unique, descriptive name you'll recognize.
+  - **App owner**: This should be the same owner as your Boardify instance.
+  - **Config Vars**: Keep the placeholder values for `OAUTH_CLIENT_ID`, `OAUTH_CLIENT_SECRET` and `ALLOWED_ORIGINS`; we'll replace them later. `SECRET_KEY` is generated for you.
+If you're comfortable with Heroku and know what it means to change the other values, feel free to do so.  Otherwise keep the defaults.
 2. When Heroku finishes deploying, note the app URL, which looks like `https://<your-app-name>.herokuapp.com`. (Heroku chooses the app name, often with a numeric suffix.) Copy it; you'll need it in the next step.
 
 ## Step Two: Configure GitHub
