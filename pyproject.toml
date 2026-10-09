@@ -2,6 +2,8 @@
 name = "boardify-oauth"
 version = "0.1.0"
 description = "GitHub OAuth provider for Boardify admin"
+license = "BSD-3-Clause"
+license-files = ["LICENSE"]
 requires-python = ">=3.14"
 dependencies = [
     "flask",
